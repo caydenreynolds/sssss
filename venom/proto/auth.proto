@@ -1,0 +1,48 @@
+syntax = "proto3";
+package venom;
+option go_package = "sssssserver/pkg/venom";
+
+import "void.proto";
+
+// Uuid in these functions always refers to an authToken
+service AuthService {
+  rpc login (Credentials) returns (AuthToken) {}
+  rpc newUser (Credentials) returns (AuthToken) {}
+//  rpc changePassword (PasswordChangeRequest) returns (AuthToken) {}
+//  rpc resetPassword (PasswordResetRequest) returns (AuthToken) {}
+//  rpc deleteUser (Credentials) returns (Void)
+}
+
+message AuthToken {
+  fixed64 mostSignificant = 1;
+  fixed64 leastSignificant = 2;
+}
+
+message Credentials {
+  string username = 1;
+  bytes password = 2;
+}
+
+message NewUser {
+  string username = 1;
+  string password = 2;
+}
+
+message PasswordChangeRequest {
+  AuthToken authToken = 1;
+  PasswordChange request = 2;
+}
+
+message PasswordChange {
+  string oldPassword = 2;
+  string newPassword = 3;
+}
+
+message PasswordResetRequest {
+  AuthToken authToken = 1;
+  PasswordReset request = 2;
+}
+
+message PasswordReset {
+  string newPassword = 2;
+}

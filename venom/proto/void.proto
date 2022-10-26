@@ -1,0 +1,5 @@
+syntax = "proto3";
+package venom;
+option go_package = "sssssserver/pkg/venom";
+
+message Void {}

@@ -1,0 +1,66 @@
+syntax = "proto3";
+package venom;
+option go_package = "sssssserver/pkg/venom";
+
+import "auth.proto";
+import "void.proto";
+
+service FileService {
+  rpc createFolder(CreateFolderRequest) returns (Void);
+  rpc createFile(CreateFileRequest) returns (FileId);
+  rpc getRootFolder(AuthToken) returns (FileMetadata);
+  rpc getFolderContents(GetContentsRequest) returns (stream FolderContents);
+//  rpc getDirectoryContents (PathRequest) returns (stream FileMetadata);
+//  rpc search (SearchRequest) returns (stream FileMetadata);
+//  rpc getFileHistory (FileRequest) returns (stream FileMetadata);
+//  rpc uploadFile (PathRequest) returns (FileId);
+//  rpc deleteFile (PathRequest) returns (Void);
+}
+
+message FileId {
+  uint64 id = 1;
+}
+
+message CreateFolderRequest {
+  AuthToken authToken = 1;
+  CreateFolder request = 2;
+}
+
+message CreateFolder {
+  FileId parentId = 1;
+  string name = 2;
+}
+
+message GetContentsRequest {
+  AuthToken authToken = 1;
+  GetContents request = 2;
+}
+
+message GetContents {
+  FileId folderId = 1;
+}
+
+message FolderContents {
+  repeated FileMetadata contents = 1;
+}
+
+message FileMetadata {
+  FileId id = 1;
+  string name = 2;
+  FileType type = 3;
+}
+
+message CreateFileRequest {
+  AuthToken authToken = 1;
+  CreateFile request = 2;
+}
+
+message CreateFile {
+  string name = 1;
+  FileId parentId = 3;
+}
+
+enum FileType {
+  FOLDER = 0;
+  FILE = 1;
+}

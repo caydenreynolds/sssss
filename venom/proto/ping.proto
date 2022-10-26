@@ -1,0 +1,17 @@
+syntax = "proto3";
+package venom;
+option go_package = "sssssserver/pkg/venom";
+
+import "void.proto";
+
+service PingService {
+  rpc PingPong (Ping) returns (Pong) {}
+//  rpc PingStream (Void) returns (stream Pong) {}
+}
+
+message Ping {
+  string message = 1;
+}
+message Pong {
+  string message = 2;
+}

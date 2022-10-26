@@ -1,0 +1,13 @@
+syntax = "proto3";
+package venom;
+option go_package = "sssssserver/pkg/venom/venom";
+
+message VenomMessage {
+  bytes authToken = 1;
+  uint32 msgType = 2;
+  string file_name = 3;
+  string search_string = 4;
+  string directory = 5;
+  string username = 6;
+  string password = 7;
+}
